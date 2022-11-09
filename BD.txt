@@ -1,0 +1,140 @@
+create table Usuarios (
+    id int not null auto_increment,
+    nombre varchar (255) not null,
+    correoElectronico varchar (255) not null,
+    contrasena varchar (255) not null,
+    estado varchar (255) not null,
+    primary key (id) 
+);
+
+insert into Usuarios (nombre, correoElectronico, contrasena, estado) values ("Gonzalo Donoso", "gonzalo.d@outlook.cl", "123", "VIGENTE");
+insert into Usuarios (nombre, correoElectronico, contrasena, estado) values ("Andres Ramirez", "andres.r@outlook.cl", "123", "VIGENTE");
+
+create table Categorias (
+    id int not null auto_increment,
+    nombre varchar (255) not null,
+    primary key (id)
+);
+
+insert into Categorias (nombre) values ("Berserker");
+insert into Categorias (nombre) values ("Cazador");
+insert into Categorias (nombre) values ("Centurion");
+insert into Categorias (nombre) values ("Medico");
+
+create table Personajes (
+    id int not null auto_increment,
+    nombre varchar (255),
+    alcanceArma int not null,
+    ataqueArma int not null,
+    danoArma int not null,
+    defensaArma int not null,
+    defensaArmadura int not null,
+    evasion int not null,
+    iniciativa int not null,
+    movimiento int not null,
+    punteriaArma int not null,    
+    resistenciaArma int not null,
+    resistenciaArmadura int not null,
+    salud int not null,
+    tipoDano varchar (255) not null,
+    estado varchar (255) not null,
+    idCategoria int not null,
+    idUsuario int not null,
+    primary key (id),
+    foreign key (idCategoria) references Categorias (id),
+    foreign key (idUsuario) references Usuarios (id)
+);
+
+insert into Personajes (nombre, alcanceArma, ataqueArma, danoArma, defensaArma, defensaArmadura, evasion, iniciativa, movimiento, punteriaArma, resistenciaArma, resistenciaArmadura, salud, tipoDano, estado, idCategoria, idUsuario) values ("Berserker#1", 1, 8, 8, 4, 2, 4, 4, 3, 0, 16, 8, 16, "CORTE", "VIGENTE", 1, 1); 
+insert into Personajes (nombre, alcanceArma, ataqueArma, danoArma, defensaArma, defensaArmadura, evasion, iniciativa, movimiento, punteriaArma, resistenciaArma, resistenciaArmadura, salud, tipoDano, estado, idCategoria, idUsuario) values ("Cazador#1", 5, 4, 8, 0, 0, 8, 6, 4, 8, 0, 0, 8, "PERFORACION", "VIGENTE", 2, 1);
+insert into Personajes (nombre, alcanceArma, ataqueArma, danoArma, defensaArma, defensaArmadura, evasion, iniciativa, movimiento, punteriaArma, resistenciaArma, resistenciaArmadura, salud, tipoDano, estado, idCategoria, idUsuario) values ("Centurion#1", 1, 6, 6, 8, 4, 4, 4, 3, 0, 32, 16, 12, "PERFORACION", "VIGENTE", 3, 1); 
+insert into Personajes (nombre, alcanceArma, ataqueArma, danoArma, defensaArma, defensaArmadura, evasion, iniciativa, movimiento, punteriaArma, resistenciaArma, resistenciaArmadura, salud, tipoDano, estado, idCategoria, idUsuario) values ("Medico#1", 1, 4, 4, 0, 0, 6, 8, 4, 0, 0, 0, 8, "PERFORACION", "VIGENTE", 4, 1);
+insert into Personajes (nombre, alcanceArma, ataqueArma, danoArma, defensaArma, defensaArmadura, evasion, iniciativa, movimiento, punteriaArma, resistenciaArma, resistenciaArmadura, salud, tipoDano, estado, idCategoria, idUsuario) values ("Berserker#2", 1, 8, 8, 4, 2, 4, 4, 3, 0, 16, 8, 16, "CORTE", "VIGENTE", 1, 2); 
+insert into Personajes (nombre, alcanceArma, ataqueArma, danoArma, defensaArma, defensaArmadura, evasion, iniciativa, movimiento, punteriaArma, resistenciaArma, resistenciaArmadura, salud, tipoDano, estado, idCategoria, idUsuario) values ("Cazador#2", 5, 4, 8, 0, 0, 8, 6, 4, 8, 0, 0, 8, "PERFORACION", "VIGENTE", 2, 2);
+insert into Personajes (nombre, alcanceArma, ataqueArma, danoArma, defensaArma, defensaArmadura, evasion, iniciativa, movimiento, punteriaArma, resistenciaArma, resistenciaArmadura, salud, tipoDano, estado, idCategoria, idUsuario) values ("Centurion#2", 1, 6, 6, 8, 4, 4, 4, 3, 0, 32, 16, 12, "PERFORACION", "VIGENTE", 3, 2); 
+insert into Personajes (nombre, alcanceArma, ataqueArma, danoArma, defensaArma, defensaArmadura, evasion, iniciativa, movimiento, punteriaArma, resistenciaArma, resistenciaArmadura, salud, tipoDano, estado, idCategoria, idUsuario) values ("Medico#2", 1, 4, 4, 0, 0, 6, 8, 4, 0, 0, 0, 8, "PERFORACION", "VIGENTE", 4, 2);                     
+
+create table Desafios (
+    id int not null auto_increment,
+    estado varchar (255) not null,
+    fecha varchar (255) not null,
+    idUsuario1 int not null,
+    idUsuario2 int not null,
+    colorUsuario1 varchar (255) not null,
+    colorUsuario2 varchar (255) not null,
+    primary key (id),
+    foreign key (idUsuario1) references Usuarios (id),
+    foreign key (idUsuario2) references Usuarios (id)
+);
+
+create table Batallas (
+    id int not null auto_increment,
+    estado varchar (255) not null,
+    idDesafio int not null,
+    primary key (id),
+    foreign key (idDesafio) references Desafios (id)
+);    
+
+create table BatallasEstadisticas  (
+    id int not null auto_increment, 
+    defensaArma int not null,
+    defensaArmadura int not null,
+    iniciativaPersonaje int not null,
+    resistenciaArma int not null,
+    resistenciaArmadura int not null,  
+    saludPersonaje int not null,
+    idBatalla int not null,
+    idPersonaje int not null,
+    idUsuario int not null,
+    primary key (id),
+    foreign key (idBatalla) references Batallas (id),
+    foreign key (idPersonaje) references Personajes (id),
+    foreign key (idUsuario) references Usuarios (id)
+);
+
+create table BatallasResultados (
+    id int not null auto_increment,
+    resultado varchar (255) not null,
+    idBatalla int not null,
+    idUsuario int not null,
+    primary key (id),
+    foreign key (idBatalla) references Batallas (id),
+    foreign key (idUsuario) references Usuarios (id)
+);
+
+create table Turnos (
+    id int not null auto_increment,
+    numeroTurno int not null,
+    estado varchar (255) not null,
+    idBatalla int not null,	
+    idPersonaje int not null,   
+    primary key (id),
+    foreign key (idBatalla) references Batallas (id),
+    foreign key (idPersonaje) references Personajes (id)
+);
+
+create table Ataques (
+    id int not null auto_increment,
+    danoAtaque int not null,
+    resultadoAtaque varchar (255) not null,
+    idPersonaje1 int not null,
+    idPersonaje2 int not null,
+    idTurno int not null,
+    primary key (id),
+    foreign key (idPersonaje1) references Personajes (id),
+    foreign key (idPersonaje2) references Personajes (id),
+    foreign key (idTurno) references Turnos (id)
+);
+
+create table Movimientos (
+    id int not null auto_increment,
+    posicionInicial varchar (255) not null,
+    posicionFinal varchar (255) not null,
+    orientacion varchar (255) not null, 
+    estado varchar (255) not null,   
+    idPersonaje int not null,
+    idTurno int not null,
+    primary key (id),
+    foreign key (idPersonaje) references Personajes (id),
+    foreign key (idTurno) references Turnos (id)
+);                                              
